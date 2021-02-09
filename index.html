@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Simple Password Generator</title>
+		<script src="https://kit.fontawesome.com/83a27a9b48.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="wrapper">
+			<h1>Generate A Random Password For Your Work!</h1>
+			<input type="text" placeholder="Generate Password" readonly="" id="input"> <br>
+			<button id="generate"><i class="fas fa-lock"></i>Generate Password</button>
+			<button id="copyPass"><i class="far fa-copy"></i>Copy The Password</button>
+		</div>
+		<div class="modal">
+			<div class="modal-content">
+				<button id="close"><span>&times;</span></button>
+				<i class="far fa-check-circle"></i>
+				<h4 id="check">Password Copied To Clipboard</h4>
+				<p id="passConfirm"></p>
+			</div>
+		</div>
+		<script>
+			let generate=document.querySelector('#generate');
+			let copyPass=document.querySelector('#copyPass');
+			let input=document.querySelector('#input');
+			let close=document.querySelector('#close');
+			let modal=document.querySelector('.modal');
+			generate.onclick=()=>{
+				let charse='53hjfdusiDg#%uy34jhnUsdfhg374n%^uigh3487n8yudf__jhg784nui*jnfdh5365#o389jhg7sd67jn';
+				let passLength=10;
+				let pass='';
+				for(let i=0; i<passLength; i++){
+						let randomNumber=Math.floor(Math.random()*charse.length);
+						pass+=charse.substring(randomNumber, randomNumber+1);
+						input.value=pass;
+					}
+				}
+				copyPass.onclick=()=>{
+					if(input.value==''){
+					alert('At First, Generate A Password')
+				}else{
+				input.select();
+				input.setSelectionRange(0, 99999);
+					document.execCommand('copy');
+					modal.style.transform = 'scale(1)';
+					
+						document.querySelector('#passConfirm').innerHTML='New Password: '+input.value;
+				}
+					
+				}
+			close.onclick=()=>{
+			modal.style.transform = 'scale(0)';
+			}
+
+			//if user click outside of the modal, then close the modal
+			window.onclick =(event)=> {
+			if (event.target == modal) {
+			modal.style.transform = 'scale(0)';
+			}
+			}
+			</script>
+		</body>
+	</html>
